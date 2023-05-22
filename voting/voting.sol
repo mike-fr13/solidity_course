@@ -16,6 +16,7 @@ contract Voting is Ownable {
         string description;
         uint voteCount;
     }
+
     enum WorkflowStatus {
         RegisteringVoters,
         ProposalsRegistrationStarted,
@@ -32,10 +33,10 @@ contract Voting is Ownable {
     mapping(address => Voter) internal whitelistedVoters;
 
     //liste des propositions
-    Proposal[] internal proposals;
+    Proposal[] internal  proposals;
 
     //status du vote à l'instant T
-    WorkflowStatus internal currentStatus;
+    WorkflowStatus public  currentStatus;
     
     event Whitelisted(address _address);
     event AllreadyWhitelisted(address _address);
@@ -194,5 +195,9 @@ contract Voting is Ownable {
     function getWinner() public view votesTallied returns (Proposal memory) {
         Proposal memory winingProposal = proposals[winningProposalId];
         return (winingProposal);
+     }
+
+     function getProposals() public view returns (Proposal[] memory) {
+         return proposals;
      }
 }
